@@ -1,5 +1,8 @@
-import 'package:cards/src/constants/style.dart';
 import 'package:flutter/material.dart';
+
+import 'package:cached_network_image/cached_network_image.dart';
+
+import 'package:cards/src/constants/style.dart';
 
 class HomeView extends StatelessWidget {
   @override
@@ -155,33 +158,59 @@ class AppCard extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.only(right: 20, left: 3),
-      padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
         borderRadius: StyleConstants.appRadius,
-        color: Colors.white10,
+        image: DecorationImage(
+          image: CachedNetworkImageProvider('http://i.pravatar.cc/500?${this.id}'),
+          alignment: Alignment.center,
+          fit: BoxFit.cover,
+        ),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            'The Dreaming Moon',
-            style: TextStyle(
-              color: Colors.white70,
-              fontWeight: FontWeight.w400,
-              fontSize: 23,
+      child: ClipRRect(
+        borderRadius: StyleConstants.appRadius,
+        child: Stack(
+          children: <Widget>[
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.transparent,
+                    Theme.of(context).primaryColor,
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  stops: [0.5, 1],
+                ),
+              ),
             ),
-          ),
-          SizedBox(height: 15),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-            decoration: BoxDecoration(
-              borderRadius: StyleConstants.appRadius,
-              color: Colors.blueAccent,
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'The Dreaming Moon',
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 23,
+                    ),
+                  ),
+                  SizedBox(height: 15),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                    decoration: BoxDecoration(
+                      borderRadius: StyleConstants.appRadius,
+                      color: Colors.blueAccent,
+                    ),
+                    child: Text('Animated'),
+                  ),
+                ],
+              ),
             ),
-            child: Text('Animated'),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
